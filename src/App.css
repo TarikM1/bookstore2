@@ -48,7 +48,7 @@ header ul li a:hover {
 }
 
 .theme-toggle-button {
-  background-color: var(--button-primary-bg);
+  background-color: var(--button-color);
   color: var(--button-text);
   border: none;
   padding: 8px 15px;

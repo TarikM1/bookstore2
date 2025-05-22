@@ -29,6 +29,7 @@ html, body {
   --success-button-bg: #28a745;
   --success-button-hover-bg: #218838;
   --primary-color: #c89b3f;
+  --button-color: #2c2c2c;
 }
 
 body.dark-mode {
@@ -50,6 +51,8 @@ body.dark-mode {
   --success-button-bg: #63d663;
   --success-button-hover-bg: #52c452;
   --primary-color: #f0ad4e;
+  --button-color: #f8f8f8;
+
 }
 
 h1 {
