@@ -1,0 +1,74 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --background-color: #f8f8f8;
+  --text-color: #333;
+  --card-background: #f8f8f8;
+  --header-background: #f8f8f8;
+  --header-border: lightgray;
+  --link-color: #333;
+  --link-hover-color: #c89b3f;
+  --link-hover-bg: lightgray;
+  --shadow-color: rgba(0, 0, 0, 0.25);
+  --button-primary-bg: #c89b3f;
+  --button-primary-hover-bg: #a87f2b;
+  --button-text: #f8f8f8;
+  --input-border-color: #ccc;
+  --danger-button-bg: #dc3545;
+  --danger-button-hover-bg: #c02b3b;
+  --success-button-bg: #28a745;
+  --success-button-hover-bg: #218838;
+  --primary-color: #c89b3f;
+}
+
+body.dark-mode {
+  --background-color: #2c2c2c;
+  --text-color: #f0f0f0;
+  --card-background: #3a3a3a;
+  --header-background: #2c2c2c;
+  --header-border: black;
+  --link-color: #cccccc;
+  --link-hover-color: #f0ad4e;
+  --link-hover-bg: #000;
+  --shadow-color: rgba(0, 0, 0, 0.7);
+  --button-primary-bg: #f0ad4e;
+  --button-primary-hover-bg: #ec971f;
+  --button-text: #333333;
+  --input-border-color: #777;
+  --danger-button-bg: #e65c5c;
+  --danger-button-hover-bg: #d94a4a;
+  --success-button-bg: #63d663;
+  --success-button-hover-bg: #52c452;
+  --primary-color: #f0ad4e;
+}
+
+h1 {
+  text-align: center;
+  color: var(--text-color);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.p1 {
+  color: var(--text-color);
+  text-align: center;
+  line-height: 32px;
+  font-size: 24px;
+  font-family: 'Times New Roman', Times, serif;
+}
+.div1 {
+  padding: 5% 32px;
+}

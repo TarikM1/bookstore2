@@ -1,0 +1,92 @@
+.main {
+  max-width: 1600px;
+  margin: auto;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.cards_item {
+  display: flex;
+  padding: 1rem;
+  width: calc(100% / 4);
+}
+
+.card.horizontal {
+  display: flex;
+  flex-direction: row;
+  height: 300px;
+  background-color: var(--card-background);
+  border-radius: 0.25rem;
+  box-shadow: 0 20px 40px -14px var(--shadow-color);
+  overflow: hidden;
+  width: 100%;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book_image {
+  flex-shrink: 0;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.book_image img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.card_content {
+  padding: 20px;
+  background: var(--card-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.card_title {
+  font-size: 22px;
+  margin-bottom: 10px;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.card_author,
+.card_price_text {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+.card_price_text {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.add_to_cart {
+  background-color: var(--button-primary-bg);
+  color: var(--button-text);
+  padding: 10px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  width: fit-content;
+  margin-top: auto;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.add_to_cart:hover {
+  background-color: var(--button-primary-hover-bg);
+}
