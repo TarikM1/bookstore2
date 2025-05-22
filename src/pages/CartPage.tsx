@@ -17,14 +17,11 @@ interface DetailedCartItem extends Book {
 }
 
 function CartPage() {
-  const [, setCartItems] = useState<CartItem[]>([]);
   const [detailedCartItems, setDetailedCartItems] = useState<DetailedCartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const storedCartItems = getCartItems();
-    setCartItems(storedCartItems);
-
     if (storedCartItems.length >= 0) {
       fetch('/podaci_knjizare-sš.json')
         .then((res) => {
@@ -65,7 +62,6 @@ function CartPage() {
 
   const handleRemoveFromCart = (bookISBN: string) => {
     removeFromCart(bookISBN);
-    setCartItems(prevItems => prevItems.filter(item => item.id !== bookISBN));
     setDetailedCartItems(prevDetails => prevDetails.filter(item => item.isbn !== bookISBN));
   };
 
@@ -74,12 +70,6 @@ function CartPage() {
 
     if (!isNaN(newQuantity) && newQuantity >= 0) {
       updateCartItemQuantity(bookISBN, newQuantity);
-
-      setCartItems(prevItems =>
-        prevItems.map(item =>
-          item.id === bookISBN ? { ...item, quantity: newQuantity } : item
-        )
-      );
 
       fetch('/podaci_knjizare-sš.json')
         .then((res) => res.json())
