@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AboutUsPage from './pages/AboutUsPage';
 import CartPage from './pages/CartPage';
 import MainPage from './pages/MainPage';
-import './index.css';
-import './App.css';
+import './index.css'; // BITNO: index.css se mora učitati PRVI
+import './App.css'; // App.css se učitava DRUGI
 
 function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {

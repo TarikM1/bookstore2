@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { getCartItems, removeFromCart, updateCartItemQuantity, clearCart } from '../cartComp/CartUtils';
 import { Book } from '../components/Bookcard';
-import CartItemsList from '../cartComp/CartItemsList'; 
+import CartItemsList from '../cartComp/CartItemsList';
 import CartSummary from '../cartComp/CartSummary';
 import EmptyCartMessage from '../cartComp/EmptyCartMessage';
 import '../CartPage.css';
+import OrderModal from '../components/OrderModal';
 
+// INTERFEJSI - Ostavljam ih ovde kako si ti poslao, ali preporučujem centralizaciju
 interface CartItem {
   id: string;
   quantity: number;
@@ -16,12 +18,40 @@ interface DetailedCartItem extends Book {
   subtotal: number;
 }
 
+interface CustomerData {
+  firstName: string;
+  lastName: string;
+  address: string;
+  phone: string;
+  email: string;
+}
+
+interface PlacedOrder {
+  orderId: string;
+  customer: CustomerData;
+  items: {
+    isbn: string;
+    title: string;
+    quantity: number;
+    price: number;
+    subtotal: number;
+  }[];
+  totalAmount: number;
+  orderDate: string;
+}
+
+
 function CartPage() {
+  const [, setCartItems] = useState<CartItem[]>([]);
   const [detailedCartItems, setDetailedCartItems] = useState<DetailedCartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [orderPlacedMessage, setOrderPlacedMessage] = useState('');
 
   useEffect(() => {
     const storedCartItems = getCartItems();
+    setCartItems(storedCartItems);
+
     if (storedCartItems.length >= 0) {
       fetch('/podaci_knjizare-sš.json')
         .then((res) => {
@@ -63,6 +93,7 @@ function CartPage() {
   const handleRemoveFromCart = (bookISBN: string) => {
     removeFromCart(bookISBN);
     setDetailedCartItems(prevDetails => prevDetails.filter(item => item.isbn !== bookISBN));
+    setCartItems(prevItems => prevItems.filter(item => item.id !== bookISBN));
   };
 
   const handleQuantityChange = (bookISBN: string, event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,28 +132,106 @@ function CartPage() {
     clearCart();
     setDetailedCartItems([]);
     setTotalPrice(0);
+    alert('Your shopping cart has been cleared.');
   };
 
-  const handlePlaceOrder = () => {
-    alert("No function :)");
+  const handlePlaceOrder = (customerData: CustomerData) => {
+    const newOrder: PlacedOrder = {
+      orderId: `ORD-${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`,
+      customer: customerData,
+      items: detailedCartItems.map(item => ({
+        isbn: item.isbn,
+        title: item.title,
+        quantity: item.quantity,
+        price: item.price,
+        subtotal: item.subtotal
+      })),
+      totalAmount: totalPrice,
+      orderDate: new Date().toLocaleString()
+    };
+
+    const existingOrders: PlacedOrder[] = JSON.parse(localStorage.getItem('placedOrders') || '[]');
+    existingOrders.push(newOrder);
+    localStorage.setItem('placedOrders', JSON.stringify(existingOrders));
+
+    console.log("--- NEW ORDER PLACED AND SAVED LOCALLY ---");
+    console.log("Order Details:", newOrder);
+    console.log("All placed orders (in localStorage):", existingOrders);
+    console.log("------------------------------------------");
+
+    // === START: Dodato za generisanje i preuzimanje fajla ===
+    const fileName = `order_${newOrder.orderId}.txt`;
+    const jsonContent = JSON.stringify(newOrder, null, 2); // formatirano za čitljivost
+
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const href = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = fileName; // Ime fajla za preuzimanje
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href); // Oslobodi URL objekat
+    // === END: Dodato za generisanje i preuzimanje fajla ===
+
+    setOrderPlacedMessage('Your order has been successfully placed');
+
+    clearCart();
+    setDetailedCartItems([]);
+    setTotalPrice(0);
+    setIsOrderModalOpen(false);
+
+    setTimeout(() => {
+      setOrderPlacedMessage('');
+    }, 5000);
   };
+
 
   if (detailedCartItems.length === 0) {
-    return <EmptyCartMessage />;
+    return (
+      <div className="cart-page">
+        <h1>Your Shopping Cart</h1>
+        {orderPlacedMessage && (
+          <div className="order-success-message">
+            {orderPlacedMessage}
+          </div>
+        )}
+        <EmptyCartMessage />
+      </div>
+    );
   }
 
   return (
-    <div className="cart-overall-container">
-      <CartItemsList
-        items={detailedCartItems}
-        onQuantityChange={handleQuantityChange}
-        onRemove={handleRemoveFromCart}
-      />
+    <div className="cart-page">
+      <h1>Your Shopping Cart</h1>
 
-      <CartSummary
-        totalPrice={totalPrice}
+      {orderPlacedMessage && (
+        <div className="order-success-message">
+          {orderPlacedMessage}
+        </div>
+      )}
+
+      <div className="cart-overall-container">
+        <CartItemsList
+          items={detailedCartItems}
+          onQuantityChange={handleQuantityChange}
+          onRemove={handleRemoveFromCart}
+        />
+
+        <CartSummary
+          totalPrice={totalPrice}
+          onPlaceOrder={() => setIsOrderModalOpen(true)}
+          onClearCart={handleClearAllCart}
+        />
+      </div>
+
+      <OrderModal
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
         onPlaceOrder={handlePlaceOrder}
-        onClearCart={handleClearAllCart}
+        totalPrice={totalPrice}
       />
     </div>
   );

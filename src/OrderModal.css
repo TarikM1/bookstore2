@@ -1,0 +1,102 @@
+.order-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
+
+.order-modal-content {
+  background-color: var(--card-background); 
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px var(--shadow-color); 
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh; 
+  overflow-y: auto; 
+  color: var(--text-color); 
+}
+
+.order-modal-content h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--primary-color); 
+}
+
+.order-modal-content p {
+  text-align: center;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="email"] {
+  width: calc(100% - 20px); 
+  padding: 10px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: var(--background-color); 
+  color: var(--text-color); 
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color); 
+  outline: none;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 15px; 
+  margin-top: 30px;
+}
+
+.place-order-button,
+.cancel-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.05em;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.place-order-button {
+  background-color: var(--success-button-bg); 
+  color: var(--button-text);
+}
+
+.place-order-button:hover {
+  background-color: var(--success-button-hover-bg);
+}
+
+.cancel-button {
+  background-color: var(--danger-button-bg);
+  color: var(--button-text);
+}
+
+.cancel-button:hover {
+  background-color: var(--danger-button-hover-bg);
+}

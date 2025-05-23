@@ -233,3 +233,17 @@
 .cart-place-order-button:hover {
     background-color: var(--success-button-hover-bg);
 }
+
+.order-success-message {
+  background-color: var(--success-button-bg);
+  color: var(--button-text);
+  padding: 15px 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 600px;
+  font-size: 1.1em;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s ease-in-out;
+}
