@@ -3,7 +3,7 @@ import BookCard, { BookWithDescription } from './Bookcard';
 import BookDescriptionModal from './BookDescriptionModal';
 
 interface BooksGridProps {
-  books: BookWithDescription[]; 
+  books: BookWithDescription[];
 }
 
 const BooksGrid: React.FC<BooksGridProps> = ({ books }) => {

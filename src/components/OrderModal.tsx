@@ -48,7 +48,7 @@ const OrderModal: React.FC<OrderModalProps> = ({ isOpen, onClose, onPlaceOrder, 
     <div className="order-modal-overlay">
       <div className="order-modal-content">
         <h2>Place Your Order</h2>
-        <p>Total: ${totalPrice.toFixed(2)}</p>
+        <p>Total: {totalPrice.toFixed(2)} rsd</p>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="firstName">First Name:</label>

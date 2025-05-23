@@ -4,9 +4,10 @@ interface CartSummaryProps {
   totalPrice: number;
   onPlaceOrder: () => void;
   onClearCart: () => void;
+  isPlaceOrderDisabled: boolean; 
 }
 
-const CartSummary: React.FC<CartSummaryProps> = ({ totalPrice, onPlaceOrder, onClearCart }) => {
+const CartSummary: React.FC<CartSummaryProps> = ({ totalPrice, onPlaceOrder, onClearCart, isPlaceOrderDisabled }) => {
   return (
     <div className="cart-summary-section">
       <h2>Order Summary</h2>
@@ -14,7 +15,8 @@ const CartSummary: React.FC<CartSummaryProps> = ({ totalPrice, onPlaceOrder, onC
       <div className="cart-action-buttons">
         <button
           onClick={onPlaceOrder}
-          className="cart-place-order-button"
+          className={`cart-place-order-button ${isPlaceOrderDisabled ? 'disabled-button' : ''}`}
+          disabled={isPlaceOrderDisabled}
         >
           Place Order
         </button>

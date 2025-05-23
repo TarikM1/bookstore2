@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import BooksGrid from "../components/BooksGrid"; 
-import { BookWithDescription } from '../components/Bookcard'; 
-import '../Main.css'; 
+import BooksGrid from "../components/BooksGrid";
+import { BookWithDescription } from '../components/Bookcard';
+import '../Main.css';
 
 function MainPage() {
   const [books, setBooks] = useState<BookWithDescription[]>([]);
@@ -12,7 +12,7 @@ function MainPage() {
         if (!res.ok) throw new Error("Error fetching book data");
         return res.json();
       })
-      .then((data: BookWithDescription[]) => { 
+      .then((data: BookWithDescription[]) => {
         setBooks(data);
       })
       .catch((err) => console.error("Error fetching book data:", err));
@@ -20,7 +20,7 @@ function MainPage() {
 
   return (
     <div>
-      <BooksGrid books={books} /> {}
+      <BooksGrid books={books} /> { }
     </div>
   );
 }

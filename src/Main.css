@@ -69,9 +69,10 @@
   color: var(--text-color);
   transition: color 0.3s ease;
 }
+
 .card_price_text {
-    color: var(--primary-color);
-    font-weight: bold;
+  color: var(--primary-color);
+  font-weight: bold;
 }
 
 .add_to_cart {
