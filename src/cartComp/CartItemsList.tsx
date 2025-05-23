@@ -1,6 +1,6 @@
 import React from 'react';
 import CartItemCard from './CartItemCard';
-import { Book } from '../components/Bookcard'; 
+import { Book } from '../components/Bookcard';
 
 interface DetailedCartItem extends Book {
   quantity: number;
