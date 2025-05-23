@@ -7,7 +7,6 @@ import EmptyCartMessage from '../cartComp/EmptyCartMessage';
 import '../CartPage.css';
 import OrderModal from '../components/OrderModal';
 
-// INTERFEJSI - Ostavljam ih ovde kako si ti poslao, ali preporučujem centralizaciju
 interface CartItem {
   id: string;
   quantity: number;
@@ -154,27 +153,20 @@ function CartPage() {
     existingOrders.push(newOrder);
     localStorage.setItem('placedOrders', JSON.stringify(existingOrders));
 
-    console.log("--- NEW ORDER PLACED AND SAVED LOCALLY ---");
-    console.log("Order Details:", newOrder);
-    console.log("All placed orders (in localStorage):", existingOrders);
-    console.log("------------------------------------------");
-
-    // === START: Dodato za generisanje i preuzimanje fajla ===
     const fileName = `order_${newOrder.orderId}.txt`;
-    const jsonContent = JSON.stringify(newOrder, null, 2); // formatirano za čitljivost
+    const jsonContent = JSON.stringify(newOrder, null, 2); 
 
     const blob = new Blob([jsonContent], { type: 'application/json' });
     const href = URL.createObjectURL(blob);
 
     const link = document.createElement('a');
     link.href = href;
-    link.download = fileName; // Ime fajla za preuzimanje
+    link.download = fileName; 
     document.body.appendChild(link);
     link.click();
 
     document.body.removeChild(link);
-    URL.revokeObjectURL(href); // Oslobodi URL objekat
-    // === END: Dodato za generisanje i preuzimanje fajla ===
+    URL.revokeObjectURL(href);
 
     setOrderPlacedMessage('Your order has been successfully placed');
 
